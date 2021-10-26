@@ -1,0 +1,73 @@
+int soundsensor = A0;
+int led1 = A1;
+int ledPin = D12;
+int ldrPin = A3;                
+#include <stdio.h>
+#include <stdlib.h>
+
+int button = D8;           
+int led =D7;                
+int ledflag=0;                  
+
+
+void setup()
+{
+  Serial.begin(9600);
+  pinMode (soundsensor, INPUT);
+pinMode (led1, OUTPUT);
+
+  pinMode(ledPin, OUTPUT);
+  pinMode(ldrPin, INPUT);
+
+  pinMode(button,INPUT);        
+  pinMode(led,OUTPUT);          
+  digitalWrite(led,LOW);
+
+}
+
+
+void loop()
+{
+  int sensorvalue = digitalRead (soundsensor);            
+  //if the sound intensity is higher than threshold which is set by us, 
+
+  Serial.println(sensorvalue);
+                                                         
+  //then sensor would return the value as 1
+  if (sensorvalue == 1)                                    
+  {
+    digitalWrite(led1, HIGH);
+  }
+  
+  else
+  {
+    digitalWrite(led1, LOW);
+   
+  }
+  int ldrStatus = analogRead(ldrPin);
+
+  if (ldrStatus <= 20)
+  {
+    digitalWrite(ledPin, HIGH);
+    Serial.print("Its Dark, Turn on the LED:");
+    Serial.println(ldrStatus);
+
+  }
+  else
+  {
+    digitalWrite(ledPin, LOW);
+    Serial.print("Its Bright, Turn off the LED:");
+    Serial.println(ldrStatus);
+  }
+  if (digitalRead(button)==HIGH){ 
+    if (ledflag==0) {             
+      ledflag=1;                  
+      digitalWrite(led,HIGH);     
+      }                            
+    else {                       
+      ledflag=0;                  
+       
+    }
+                   
+  }     
+}
