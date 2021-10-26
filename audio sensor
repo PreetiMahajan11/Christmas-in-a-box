@@ -1,0 +1,32 @@
+int soundsensor = A0;
+int led = A1;                
+// defining pin numbersvoid setup() 
+
+void setup()
+{
+  Serial.begin(9600);
+  pinMode (soundsensor, INPUT);
+pinMode (led, OUTPUT);
+
+}
+
+
+void loop()
+{
+  int sensorvalue = digitalRead (soundsensor);            
+  //if the sound intensity is higher than threshold which is set by us, 
+
+  Serial.println(sensorvalue);
+                                                         
+  //then sensor would return the value as 1
+  if (sensorvalue == 1)                                    
+  {
+    digitalWrite(led, HIGH);
+  }
+  
+  else
+  {
+    digitalWrite(led, LOW);
+  }
+  
+}
